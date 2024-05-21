@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllNutri } from "../api/nutri.app";
 import { NutriCard } from "./nutriCardU";
+
 export function NutriList() {
     const [nutri, setNutri] = useState([]);
 
@@ -13,9 +14,9 @@ export function NutriList() {
     }, []);
 
     return (
-        <div>
-            {nutri.map(nutri => (
-                <NutriCard key={nutri.id} nutri={nutri} />
+        <div className="grid grid-cols-2 gap-2">
+            {nutri.map(n => (
+                <NutriCard key={n.id} nutri={n} />
             ))}
         </div>
     );

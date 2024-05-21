@@ -50,61 +50,79 @@ export function Nutri2Page() {
     }, [params.id, setValue]);
 
     return (
-        <div>
+        <div className='max-w-xl mx-auto'>
             <Toaster />
-            <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '400px', margin: '0 auto' }}>
+            <form onSubmit={onSubmit} className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                 <div>
-                    <label htmlFor="nombre">Nombre:</label>
-                    <input type="text" id="nombre" placeholder="Nombre" {...register("nombre", { required: true })} />
+                    <label htmlFor="nombre" className='block'>Nombres</label>
+                    <input type="text" id="nombre" placeholder="Nombre" {...register("nombre", { required: true })}
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3'
+                    />
                     {errors.nombre && <span>Este campo es requerido</span>}
                 </div>
                 <div>
-                    <label htmlFor="apellido">Apellido:</label>
-                    <input type="text" id="apellido" placeholder="Apellido" {...register("apellido", { required: true })} />
+                    <label htmlFor="apellido" className='block'>Apellidos</label>
+                    <input type="text" id="apellido" placeholder="Apellido" {...register("apellido", { required: true })} 
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3' />
                 </div>
                 <div>
-                    <label htmlFor="correo">Correo:</label>
-                    <input type="email" id="correo" placeholder="Correo" {...register("correo", { required: true })} />
+                    <label htmlFor="correo" className='block'>Correo</label>
+                    <input type="email" id="correo" placeholder="Correo" {...register("correo", { required: true })} 
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3' />
                 </div>
                 <div>
-                    <label htmlFor="altura">Altura:</label>
-                    <input type="number" step="0.01" id="altura" placeholder="Altura (m)" {...register("altura", { required: true })} />
+                    <label htmlFor="altura" className='block'>Altura</label>
+                    <input type="number" step="0.01" id="altura" placeholder="Altura (m)" {...register("altura", { required: true })}
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3' />
                 </div>
                 <div>
-                    <label htmlFor="peso">Peso:</label>
-                    <input type="number" step="0.1" id="peso" placeholder="Peso (kg)" {...register("peso", { required: true })} />
+                    <label htmlFor="peso" className='block'>Peso</label>
+                    <input type="number" step="0.1" id="peso" placeholder="Peso (kg)" {...register("peso", { required: true })} 
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3'/>
                 </div>
                 <div>
-                    <label htmlFor="rol">Rol:</label>
-                    <input type="number" id="rol" placeholder="Rol" {...register("rol", { required: true })} />
+                    <label htmlFor="rol" className='block'>Rol</label>
+                    <input type="number" id="rol" placeholder="Rol" {...register("rol", { required: true })} 
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3'/>
                 </div>
                 <div>
-                    <label htmlFor="fecha_nacimiento">Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha_nacimiento" {...register("fecha_nacimiento", { required: true })} />
+                    <label htmlFor="fecha_nacimiento" className='block'>Fecha de Nacimiento</label>
+                    <input type="date" id="fecha_nacimiento" {...register("fecha_nacimiento", { required: true })}  
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3'/>
                 </div>
                 <div>
-                    <label htmlFor="genero">Género:</label>
-                    <select id="genero" {...register("genero", { required: true })}>
+                    <label htmlFor="genero" className='block'>Género</label>
+                    <select id="genero" {...register("genero", { required: true })} 
+                        className='w-full bg-zinc-700 p-3 rounded-lg mb-3'>
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                     </select>
                 </div>
-                <button type="submit">Enviar</button>
+                <div className='col-span-2'>
+                    <button type="submit" className='w-full bg-indigo-500 p-3 rounded-lg'>Enviar</button>
+                </div>
+                <br />
             </form>
-            {params.id && <button onClick={async () => {
-                const aceptar = window.confirm('¿Estás seguro de eliminar este usuario?');
-                if (aceptar) {
-                    await deleteNutri(params.id);
-                    toast.success('Usuario eliminado correctamente', {
-                        position: "top-center",
-                        style: {
-                            background: "#101010",
-                            color: "#fff"
-                        }
-                    });
-                    navigate("/nutritec");
-                }
-            }}>Eliminar</button>}
+            {params.id && 
+                <div className='col-span-2'>
+                    <button 
+                        className='w-full bg-red-500 p-3 rounded-lg'
+                        onClick={async () => {
+                            const aceptar = window.confirm('¿Estás seguro de eliminar este usuario?');
+                            if (aceptar) {
+                                await deleteNutri(params.id);
+                                toast.success('Usuario eliminado correctamente', {
+                                    position: "top-center",
+                                    style: {
+                                        background: "#101010",
+                                        color: "#fff"
+                                    }
+                                });
+                                navigate("/nutritec");
+                            }
+                        }}>Eliminar</button>
+                </div>
+            }
         </div>
     );
 }

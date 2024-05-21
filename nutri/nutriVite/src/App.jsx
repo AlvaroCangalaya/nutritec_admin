@@ -3,6 +3,8 @@ import { NutriPage } from './pages/nutri1';
 import { Nutri2Page } from './pages/nutriU';
 import {Navigations} from './components/Navigation'
 import {Toaster} from 'react-hot-toast';
+import './App.css';
+
 function App(){
   return (
     <BrowserRouter>
