@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllNutri } from "../api/nutri.app";
-import { NutriCard } from "./nutriCard";
+import { NutriCard } from "./nutriCardU";
 export function NutriList() {
     const [nutri, setNutri] = useState([]);
 

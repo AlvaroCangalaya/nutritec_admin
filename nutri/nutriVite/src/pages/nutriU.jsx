@@ -2,17 +2,32 @@ import { useForm } from 'react-hook-form';
 import { createNutri, deleteNutri, getAll, updateNutri } from '../api/nutri.app';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 
 export function Nutri2Page() {
-    const { register, handleSubmit, formState: errors, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async data => {
         if (params.id) {
             await updateNutri(params.id, data)
+            toast.success('Usuario actualizado correctamente', {
+                position: "top-center",
+                style: {
+                    background: "#101010",
+                    color: "#fff"
+                }
+            });
         } else {
             await createNutri(data);
+            toast.success('Usuario agregado correctamente', {
+                position: "top-center",
+                style: {
+                    background: "#101010",
+                    color: "#fff"
+                }
+            });
         }
         navigate("/nutritec");
     });
@@ -29,13 +44,14 @@ export function Nutri2Page() {
                 setValue("rol", res.data.rol);
                 setValue("fecha_nacimiento", res.data.fecha_nacimiento);
                 setValue("genero", res.data.genero);
-            
             }
         }
         loadNutri();
-    }, []);
+    }, [params.id, setValue]);
+
     return (
         <div>
+            <Toaster />
             <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', maxWidth: '400px', margin: '0 auto' }}>
                 <div>
                     <label htmlFor="nombre">Nombre:</label>
@@ -79,6 +95,13 @@ export function Nutri2Page() {
                 const aceptar = window.confirm('¿Estás seguro de eliminar este usuario?');
                 if (aceptar) {
                     await deleteNutri(params.id);
+                    toast.success('Usuario eliminado correctamente', {
+                        position: "top-center",
+                        style: {
+                            background: "#101010",
+                            color: "#fff"
+                        }
+                    });
                     navigate("/nutritec");
                 }
             }}>Eliminar</button>}

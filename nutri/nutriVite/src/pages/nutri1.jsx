@@ -1,4 +1,4 @@
-import { NutriList } from "../components/nutriList"
+import { NutriList } from "../components/nutriListU"
 export function NutriPage(){
     return(
         <NutriList/>
